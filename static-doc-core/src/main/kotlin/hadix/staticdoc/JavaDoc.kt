@@ -1,4 +1,4 @@
-package hadix.javadoc
+package hadix.staticdoc
 
 import java.io.Serializable
 
@@ -12,6 +12,11 @@ data class ClassDescription(
 
 data class MethodDescription(
         val description: String?,
+        val methodType: MethodType,
         val parameters: Map<String, String>,
         val returnDoc: String?)
     : Serializable
+
+enum class MethodType {
+    NORMAL, GETTER, SETTER
+}

@@ -1,9 +1,11 @@
+package throwaway
+
 import io.swagger.annotations.Api
 
 /**
  * @author hadix
  */
-@Api(description = "任务开放接口", tags = ["TaskApi"])
+@Api(description = "任务开放接口", tags = ["throwaway.TaskApi"])
 interface TaskApi {
 
     /**

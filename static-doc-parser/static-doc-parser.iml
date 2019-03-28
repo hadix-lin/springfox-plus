@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="AutoImportedSourceRoots">
+    <option name="directories">
+      <list>
+        <option value="$MODULE_DIR$/../static-doc-parser/src/main/java" />
+        <option value="$MODULE_DIR$/../static-doc-parser/src/main/kotlin" />
+        <option value="$MODULE_DIR$/../static-doc-parser/src/test/java" />
+        <option value="$MODULE_DIR$/../static-doc-parser/src/test/kotlin" />
+      </list>
+    </option>
+  </component>
+</module>

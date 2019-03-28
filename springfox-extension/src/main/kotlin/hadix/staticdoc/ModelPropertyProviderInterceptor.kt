@@ -1,16 +1,16 @@
 package hadix.staticdoc
 
 import com.fasterxml.classmate.ResolvedType
-import hadix.javadoc.findStaticDoc
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.Aspect
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import springfox.documentation.builders.ModelPropertyBuilder
 import springfox.documentation.schema.ModelProperty
 
 @Component
 @Aspect
-class ModelPropertyProviderInterceptor {
+class ModelPropertyProviderInterceptor(@Autowired private val docStore: DocStore) {
 
     @AfterReturning(
             "execution(* springfox.documentation.schema.property.OptimizedModelPropertiesProvider.propertiesFor(..)",
@@ -18,7 +18,7 @@ class ModelPropertyProviderInterceptor {
             returning = "properties")
     fun staticDocModelPropertyFor(type: ResolvedType, properties: List<ModelProperty>): List<ModelProperty> {
 
-        val staticDoc = findStaticDoc(type.typeName, this.javaClass.classLoader)
+        val staticDoc = docStore.find(type.typeName)
         return properties.map { p ->
             var propDesc = staticDoc?.properties?.get(p.name)
             if (propDesc == null) {

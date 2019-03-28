@@ -1,7 +1,13 @@
 package hadix.javadoc
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration
+import com.github.javaparser.ast.body.MethodDeclaration
 import com.github.javaparser.ast.body.TypeDeclaration
+import com.github.javaparser.ast.type.PrimitiveType.Primitive.BOOLEAN
+import hadix.staticdoc.ClassDescription
+import hadix.staticdoc.MethodDescription
+import hadix.staticdoc.MethodType
+import hadix.staticdoc.MethodType.*
 
 
 fun ClassOrInterfaceDeclaration.toDescription(parentName: String?): ClassDescription {
@@ -41,32 +47,41 @@ private fun getMethodDescription(type: TypeDeclaration<*>): Map<String, MethodDe
                                 .map { Pair(it.name.get(), it.content.toText()) }
                                 .toMap()
                         val returnDoc = javadoc.blockTags.find { it.tagName == "return" }?.content?.toText()
-                        MethodDescription(methodDesc, parameters, returnDoc)
+                        MethodDescription(methodDesc, m.methodType(), parameters, returnDoc)
                     })
 }
 
 private fun getProperties(methods: Map<String, MethodDescription>): MutableMap<String, String> {
     val properties = mutableMapOf<String, String>()
-    methods.filter { (name, _) ->
-        name.isGetter() || name.isSetter()
-    }.forEach { (name, desc) ->
-        if (desc.description != null) {
-            if (name.isGetter()) {
-                properties[name.propName()] = desc.description
-            } else if (name.isSetter()) {
-                properties.putIfAbsent(name.propName(), desc.description)
+    methods.filter { (_, m) -> m.methodType == GETTER || m.methodType == SETTER }
+            .forEach { (name, m) ->
+                val description = m.description ?: return@forEach
+                when (m.methodType) {
+                    GETTER -> properties[name.propName()] = description
+                    SETTER -> properties.putIfAbsent(name.propName(), description)
+                    else -> Unit
+                }
             }
-        }
-    }
     return properties
 }
 
-private fun String.isGetter(): Boolean {
-    return this.startsWith("get") || this.startsWith("is")
-}
-
-private fun String.isSetter(): Boolean {
-    return this.startsWith("set")
+private fun MethodDeclaration.methodType(): MethodType {
+    val params = this.parameters
+    val name = this.nameAsString
+    return when (params.size) {
+        0 -> when {
+            name.startsWith("get")
+                    || (name.startsWith("is")
+                    && this.type.isPrimitiveType
+                    && this.type.asPrimitiveType().type == BOOLEAN) -> GETTER
+            else -> NORMAL
+        }
+        1 -> when {
+            name.startsWith("set") -> SETTER
+            else -> NORMAL
+        }
+        else -> NORMAL
+    }
 }
 
 private fun String.propName(): String {

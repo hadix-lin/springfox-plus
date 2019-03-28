@@ -1,3 +1,5 @@
+package throwaway
+
 import com.github.javaparser.JavaParser
 import com.github.javaparser.ast.CompilationUnit
 import com.github.javaparser.ast.body.MethodDeclaration
@@ -59,7 +61,7 @@ object DocParse {
 fun main() {
     //还要找到分组定义
     //定位源码文件目录
-    val root = Paths.get("src/main/java")
+    val root = Paths.get("src/throwaway.main/java")
     Files.walk(root, FileVisitOption.FOLLOW_LINKS)
             .filter { Files.isRegularFile(it) }
             .filter { it.toFile().name.endsWith(".java") }

@@ -1,3 +1,5 @@
+package throwaway
+
 data class ApiClass(
         val name: String,
         val description: String?,
