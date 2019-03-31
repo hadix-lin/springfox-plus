@@ -4,16 +4,18 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
+import java.lang.ref.WeakReference
 
 class DiskDocStore(private val storeDir: File) : DocStore {
-    private val cache = mutableMapOf<String, ClassDescription>()
+    private val cache = mutableMapOf<WeakReference<String>, ClassDescription>()
 
     private val objectMapper = ObjectMapper()
             .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
             .registerKotlinModule()
 
     override fun find(typeName: String): ClassDescription? {
-        val cached = cache[typeName]
+        val key = WeakReference(typeName)
+        val cached = cache[key]
         if (cached != null) {
             return cached
         }
@@ -23,7 +25,7 @@ class DiskDocStore(private val storeDir: File) : DocStore {
         }
         val value = objectMapper.readValue(inputFile, ClassDescription::class.java)
         if (value != null) {
-            cache[typeName] = value
+            cache[key] = value
         }
         return value
     }
