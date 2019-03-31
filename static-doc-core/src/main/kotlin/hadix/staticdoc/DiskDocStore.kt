@@ -2,14 +2,17 @@ package hadix.staticdoc
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 
 class DiskDocStore(private val storeDir: File) : DocStore {
-    private val objectMapper = ObjectMapper().setDefaultPropertyInclusion(JsonInclude.Include.NON_EMPTY)!!
+    private val objectMapper = ObjectMapper()
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
+            .registerKotlinModule()
 
     override fun find(typeName: String): ClassDescription? {
         val inputFile = getOutputFile(typeName)
-        if (inputFile.exists()) {
+        if (!inputFile.exists()) {
             return null
         }
         return objectMapper.readValue(inputFile, ClassDescription::class.java)

@@ -7,8 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="springfox-extension" />
-        <module name="static-doc-core" />
+        <module name="sample" />
         <module name="static-doc-parser" />
+        <module name="static-doc-core" />
       </profile>
     </annotationProcessing>
   </component>

@@ -2,6 +2,7 @@ package hadix.staticdoc
 
 import org.apache.commons.lang3.reflect.FieldUtils.readField
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationContext
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import springfox.documentation.RequestHandler
@@ -14,7 +15,8 @@ import springfox.documentation.swagger.common.SwaggerPluginSupport.SWAGGER_PLUGI
 @Component
 @Order(SWAGGER_PLUGIN_ORDER + 100)
 class StaticDocParameterBuilder(
-        @Autowired private val docStore: DocStore
+        @Autowired private val docStore: DocStore,
+        @Autowired private val ctx: ApplicationContext
 ) : ParameterBuilderPlugin {
 
     override fun apply(parameterContext: ParameterContext) {
@@ -28,10 +30,11 @@ class StaticDocParameterBuilder(
 
     private fun getDefinitionNames(parameterContext: ParameterContext): Triple<String, String, String> {
         val requestContext = readField(parameterContext.operationContext, "requestContext", true)
-        val requestHandler = readField(requestContext, "handler") as RequestHandler
+        val requestHandler = readField(requestContext, "handler", true) as RequestHandler
         val methodName = requestHandler.handlerMethod.method.name
         val typeName = requestHandler.declaringClass().name
-        val parameterName = parameterContext.resolvedMethodParameter().parameterIndex.toString()
+        val resolvedMethodParameter = parameterContext.resolvedMethodParameter()
+        val parameterName = resolvedMethodParameter.defaultName().or(resolvedMethodParameter.parameterIndex.toString())
         return Triple(methodName, typeName, parameterName)
     }
 
