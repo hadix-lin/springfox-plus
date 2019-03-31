@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springfox-extension" />
         <module name="sample" />
         <module name="static-doc-parser" />
+        <module name="springfox-extension" />
         <module name="static-doc-core" />
       </profile>
     </annotationProcessing>

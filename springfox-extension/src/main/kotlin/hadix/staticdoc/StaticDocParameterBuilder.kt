@@ -1,8 +1,6 @@
 package hadix.staticdoc
 
 import org.apache.commons.lang3.reflect.FieldUtils.readField
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.ApplicationContext
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import springfox.documentation.RequestHandler
@@ -14,15 +12,11 @@ import springfox.documentation.swagger.common.SwaggerPluginSupport.SWAGGER_PLUGI
 
 @Component
 @Order(SWAGGER_PLUGIN_ORDER + 100)
-class StaticDocParameterBuilder(
-        @Autowired private val docStore: DocStore,
-        @Autowired private val ctx: ApplicationContext
-) : ParameterBuilderPlugin {
+class StaticDocParameterBuilder(private val docStore: DocStore) : ParameterBuilderPlugin {
 
     override fun apply(parameterContext: ParameterContext) {
         val (methodName, typeName, parameterName) = getDefinitionNames(parameterContext)
-        val staticDoc = docStore.find(typeName)
-        val parameterDescription = staticDoc?.methods?.get(methodName)?.parameters?.get(parameterName)
+        val parameterDescription = docStore.readMethodParameterDescription(typeName, methodName, parameterName)
         if (parameterDescription != null) {
             parameterContext.parameterBuilder().description(parameterDescription)
         }

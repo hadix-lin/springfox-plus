@@ -10,6 +10,29 @@ interface DocStore {
     fun find(typeName: String): ClassDescription?
 
     /**
+     * 读取方法促使的注释
+     * @param typeName 类型全名
+     * @param methodName 方法名
+     * @param paramName 参数名
+     * @return 方法参数的注释
+     */
+    fun readMethodParameterDescription(
+            typeName: String, methodName: String, paramName: String): String? {
+        return find(typeName)?.methods?.get(methodName)?.parameters?.get(paramName)
+    }
+
+    /**
+     * 读取字段或属性的注释
+     * @param   typeName 类型全名
+     * @param paramName 字段名或属性名
+     * @return  字段或属性的注释
+     */
+    fun readFieldDescription(typeName: String, paramName: String): String? {
+        val classDescription = find(typeName) ?: return null
+        return classDescription.properties[paramName] ?: classDescription.fields[paramName]
+    }
+
+    /**
      * 保存类的静态描述文档
      *
      * @param desc 类静态描述文档
