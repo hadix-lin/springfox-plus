@@ -1,46 +1,29 @@
 package hadix.staticdoc
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import java.io.File
-import java.lang.ref.WeakReference
+import java.io.InputStream
+import java.io.OutputStream
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.StandardOpenOption
+import java.nio.file.StandardOpenOption.READ
 
-class DiskDocStore(private val storeDir: File) : DocStore {
-    private val cache = mutableMapOf<WeakReference<String>, ClassDescription>()
-
-    private val objectMapper = ObjectMapper()
-            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
-            .registerKotlinModule()
-
-    override fun find(typeName: String): ClassDescription? {
-        val key = WeakReference(typeName)
-        val cached = cache[key]
-        if (cached != null) {
-            return cached
-        }
-        val inputFile = getOutputFile(typeName)
-        if (!inputFile.exists()) {
-            return null
-        }
-        val value = objectMapper.readValue(inputFile, ClassDescription::class.java)
-        if (value != null) {
-            cache[key] = value
-        }
-        return value
-    }
-
-    private fun getOutputFile(typeName: String): File {
-        val path = typeName.replace(Regex("\\."), "/")
-        return File(storeDir, "$path.json")
-    }
-
-    override fun save(desc: ClassDescription) {
-        val typeName = desc.name
-        val outputFile = getOutputFile(typeName)
-        outputFile.parentFile.mkdirs()
-        objectMapper.writeValue(outputFile, desc)
-    }
+class DiskDocStore(storeDir: String)
+	: JsonDocStore({ it.input(storeDir) }, { it.output(storeDir) }) {
 }
 
+private fun String.input(storeDir: String): InputStream {
+	val path = this.typeToPath(storeDir)
+	return Files.newInputStream(path, READ)
+}
+
+private fun String.typeToPath(parent: String): Path {
+	val typePath = this.replace(Regex("\\."), "/")
+	return Paths.get(parent, typePath)
+}
+
+private fun String.output(storeDir: String): OutputStream {
+	val path = this.typeToPath(storeDir)
+	return Files.newOutputStream(path, StandardOpenOption.TRUNCATE_EXISTING)
+}
 

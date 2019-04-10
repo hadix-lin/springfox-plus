@@ -23,7 +23,7 @@ class ModelPropertyProviderInterceptor(@Autowired private val docStore: DocStore
     @Around(value = "propertiesFor(type)", argNames = "pjp,type")
     fun staticDocModelPropertyFor(pjp: ProceedingJoinPoint, type: ResolvedType): Any? {
         val properties = pjp.proceed()!! as List<ModelProperty>
-        val staticDoc = docStore.find(type.typeName)
+        val staticDoc = docStore.read(type.typeName)
         return properties.map { it.fillStaticDoc(staticDoc) }.toList()
     }
 
