@@ -23,7 +23,7 @@ public class SampleController {
   @Bean
   public DocStore docStore() {
     URL resource = SampleController.class.getResource("/META-INF/static-doc");
-    return new DiskDocStore(new File(resource.getFile()));
+    return new DiskDocStore(new File(resource.getFile()).getPath());
   }
 
   public static void main(String[] args) {
@@ -31,6 +31,10 @@ public class SampleController {
   }
 
   /**
+   * 示例方法<br>
+   * 示例方法的注释<br>
+   * 示例方法的注释第二行
+   *
    * @param id 实体id参数
    * @param argModel 请求参数对象
    * @return 响应对象

@@ -5,7 +5,6 @@ import java.io.OutputStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.nio.file.StandardOpenOption
 import java.nio.file.StandardOpenOption.READ
 
 class DiskDocStore(storeDir: String)
@@ -24,6 +23,9 @@ private fun String.typeToPath(parent: String): Path {
 
 private fun String.output(storeDir: String): OutputStream {
 	val path = this.typeToPath(storeDir)
-	return Files.newOutputStream(path, StandardOpenOption.TRUNCATE_EXISTING)
+	Files.deleteIfExists(path)
+	Files.createDirectories(path.parent)
+	Files.createFile(path)
+	return Files.newOutputStream(path)
 }
 

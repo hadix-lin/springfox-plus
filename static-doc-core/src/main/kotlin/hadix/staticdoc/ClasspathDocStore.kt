@@ -18,7 +18,7 @@ private fun String.typeToClasspath(parent: String): String {
 	return "$parent/$typePath"
 }
 
-private fun String.input(parent: String): InputStream {
+private fun String.input(parent: String): InputStream? {
 	val cp = this.typeToClasspath(parent)
-	return this.javaClass.classLoader.getResourceAsStream(cp)
+	return this.javaClass.getResourceAsStream(cp)
 }

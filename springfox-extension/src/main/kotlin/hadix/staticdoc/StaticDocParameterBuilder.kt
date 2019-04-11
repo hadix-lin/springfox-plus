@@ -14,25 +14,26 @@ import springfox.documentation.swagger.common.SwaggerPluginSupport.SWAGGER_PLUGI
 @Order(SWAGGER_PLUGIN_ORDER + 100)
 class StaticDocParameterBuilder(private val docStore: DocStore) : ParameterBuilderPlugin {
 
-    override fun apply(parameterContext: ParameterContext) {
-        val (methodName, typeName, parameterName) = getDefinitionNames(parameterContext)
-        val parameterDescription = docStore.readMethodParameterDescription(typeName, methodName, parameterName)
-        if (parameterDescription != null) {
-            parameterContext.parameterBuilder().description(parameterDescription)
-        }
-    }
+	override fun apply(parameterContext: ParameterContext) {
+		val (typeName, methodName, parameterName) = getDefinitionNames(parameterContext)
+		val parameterDescription = docStore.readMethodParameterDescription(typeName, methodName, parameterName)
+		if (parameterDescription != null) {
+			parameterContext.parameterBuilder().description(parameterDescription)
+		}
+	}
 
-    private fun getDefinitionNames(parameterContext: ParameterContext): Triple<String, String, String> {
-        val requestContext = readField(parameterContext.operationContext, "requestContext", true)
-        val requestHandler = readField(requestContext, "handler", true) as RequestHandler
-        val methodName = requestHandler.handlerMethod.method.name
-        val typeName = requestHandler.declaringClass().name
-        val resolvedMethodParameter = parameterContext.resolvedMethodParameter()
-        val parameterName = resolvedMethodParameter.defaultName().or(resolvedMethodParameter.parameterIndex.toString())
-        return Triple(methodName, typeName, parameterName)
-    }
+	@Suppress("DEPRECATION")
+	private fun getDefinitionNames(parameterContext: ParameterContext): Triple<String, String, String> {
+		val requestContext = readField(parameterContext.operationContext, "requestContext", true)
+		val requestHandler = readField(requestContext, "handler", true) as RequestHandler
+		val methodName = requestHandler.handlerMethod.method.name
+		val typeName = requestHandler.declaringClass().name
+		val resolvedMethodParameter = parameterContext.resolvedMethodParameter()
+		val parameterName = resolvedMethodParameter.defaultName().or(resolvedMethodParameter.parameterIndex.toString())
+		return Triple(typeName, methodName, parameterName)
+	}
 
-    override fun supports(delimiter: DocumentationType?): Boolean {
-        return SwaggerPluginSupport.pluginDoesApply(delimiter)
-    }
+	override fun supports(delimiter: DocumentationType?): Boolean {
+		return SwaggerPluginSupport.pluginDoesApply(delimiter)
+	}
 }

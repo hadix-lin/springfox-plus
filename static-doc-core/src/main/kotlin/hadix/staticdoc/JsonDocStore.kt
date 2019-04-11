@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference
  * 使用Jackson对ClassDescription对象进行序列化/反序列化然后写入到output或从input中读取.
  */
 open class JsonDocStore(
-		val input: (String) -> InputStream,
+		val input: (String) -> InputStream?,
 		val output: (String) -> OutputStream
 ) : DocStore {
 	private val cache = mutableMapOf<WeakReference<String>, ClassDescription>()
@@ -26,7 +26,7 @@ open class JsonDocStore(
 		if (cached != null) {
 			return cached
 		}
-		val value = input(typeName).use { objectMapper.readValue(it, ClassDescription::class.java) }
+		val value = input(typeName)?.use { objectMapper.readValue(it, ClassDescription::class.java) }
 		if (value != null) {
 			cache[key] = value
 		}
