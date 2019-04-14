@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-hadix.staticdoc.StaticDocAutoConfiguration
+io.github.hadixlin.springfoxplus.StaticDocAutoConfiguration

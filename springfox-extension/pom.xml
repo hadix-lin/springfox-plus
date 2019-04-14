@@ -3,13 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>springfox-plus</artifactId>
-        <groupId>cn.uc.pp.common</groupId>
+        <artifactId>springfox-plus-parent</artifactId>
+        <groupId>io.github.hadixlin.springfoxplus</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springfox-extension</artifactId>
+    <artifactId>springfox-plus</artifactId>
 
     <dependencies>
         <dependency>
@@ -23,7 +23,7 @@
             <version>3.6</version>
         </dependency>
         <dependency>
-            <groupId>cn.uc.pp.common</groupId>
+            <groupId>io.github.hadixlin.springfoxplus</groupId>
             <artifactId>static-doc-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
@@ -32,12 +32,15 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
-        </dependency>
+
+        <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
