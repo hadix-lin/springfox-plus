@@ -26,8 +26,9 @@ class StaticDocParameterBuilder(private val docStore: DocStore) : ParameterBuild
 	private fun getDefinitionNames(parameterContext: ParameterContext): Triple<String, String, String> {
 		val requestContext = readField(parameterContext.operationContext, "requestContext", true)
 		val requestHandler = readField(requestContext, "handler", true) as RequestHandler
-		val methodName = requestHandler.handlerMethod.method.name
-		val typeName = requestHandler.declaringClass().name
+		val method = requestHandler.handlerMethod.method
+		val methodName = method.name
+		val typeName = method.declaringClass.name
 		val resolvedMethodParameter = parameterContext.resolvedMethodParameter()
 		val parameterName = resolvedMethodParameter.defaultName().or(resolvedMethodParameter.parameterIndex.toString())
 		return Triple(typeName, methodName, parameterName)

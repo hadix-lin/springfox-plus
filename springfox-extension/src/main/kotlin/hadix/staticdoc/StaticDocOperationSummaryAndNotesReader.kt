@@ -33,8 +33,9 @@ class StaticDocOperationSummaryAndNotesReader(private val docStore: DocStore) : 
 	private fun getDefinitionNames(operationContext: OperationContext): Pair<String, String> {
 		val requestContext = FieldUtils.readField(operationContext, "requestContext", true)
 		val requestHandler = FieldUtils.readField(requestContext, "handler", true) as RequestHandler
-		val methodName = requestHandler.handlerMethod.method.name
-		val typeName = requestHandler.declaringClass().name
+		val method = requestHandler.handlerMethod.method
+		val methodName = method.name
+		val typeName = method.declaringClass.name
 		return Pair(typeName, methodName)
 	}
 

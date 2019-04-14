@@ -8,6 +8,10 @@ class StaticDocAutoConfiguration {
 
 	@Bean
 	fun docStore(): ClasspathDocStore {
-		return ClasspathDocStore("/META-INF/static-doc")
+		return ClasspathDocStore(DEFAULT_CLASSPATH_PARENT)
+	}
+
+	companion object {
+		const val DEFAULT_CLASSPATH_PARENT = "/META-INF/static-doc"
 	}
 }
