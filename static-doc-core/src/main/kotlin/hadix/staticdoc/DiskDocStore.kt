@@ -8,8 +8,7 @@ import java.nio.file.Paths
 import java.nio.file.StandardOpenOption.READ
 
 class DiskDocStore(storeDir: String)
-	: JsonDocStore({ it.input(storeDir) }, { it.output(storeDir) }) {
-}
+	: JsonDocStore({ it.input(storeDir) }, { it.output(storeDir) })
 
 private fun String.input(storeDir: String): InputStream {
 	val path = this.typeToPath(storeDir)
