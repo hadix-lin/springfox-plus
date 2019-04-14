@@ -16,7 +16,7 @@ import java.lang.reflect.Member
 @Suppress("UNCHECKED_CAST")
 @Component
 @Order(SWAGGER_PLUGIN_ORDER + 100)
-class StaticDocExpandedParameterBuilder(private val docStore: DocStore) : ExpandedParameterBuilderPlugin {
+class JavaDocExpandedParameterBuilder(private val docStore: DocStore) : ExpandedParameterBuilderPlugin {
     override fun apply(context: ParameterExpansionContext) {
         val metadataAccessor = readField(context, "metadataAccessor", true) as ModelAttributeParameterMetadataAccessor
         val annotatedElements = readField(metadataAccessor, "annotatedElements", true) as List<AnnotatedElement>

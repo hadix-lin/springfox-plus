@@ -1,4 +1,4 @@
-package io.github.hadixlin;
+package io.github.hadixlin.springfoxplus;
 
 public class Response {
   /** 参数1的注释 */

@@ -8,11 +8,13 @@
     <artifactId>springfox-plus-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
-        <module>springfox-extension</module>
-        <module>static-doc-core</module>
-        <module>static-doc-parser</module>
+        <module>springfox-plus</module>
+        <module>springfox-plus-javadoc-core</module>
+        <module>springfox-plus-javadoc-parser</module>
     </modules>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>

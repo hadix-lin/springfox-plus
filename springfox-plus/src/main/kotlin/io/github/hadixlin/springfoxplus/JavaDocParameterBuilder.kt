@@ -13,7 +13,7 @@ import springfox.documentation.swagger.common.SwaggerPluginSupport.SWAGGER_PLUGI
 
 @Component
 @Order(SWAGGER_PLUGIN_ORDER + 100)
-class StaticDocParameterBuilder(private val docStore: DocStore) : ParameterBuilderPlugin {
+class JavaDocParameterBuilder(private val docStore: DocStore) : ParameterBuilderPlugin {
 
 	override fun apply(parameterContext: ParameterContext) {
 		val (typeName, methodName, parameterName) = getDefinitionNames(parameterContext)

@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.hadixlin.springfoxplus</groupId>
-            <artifactId>static-doc-core</artifactId>
+            <artifactId>springfox-plus-javadoc-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

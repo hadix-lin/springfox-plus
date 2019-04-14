@@ -2,10 +2,12 @@ package io.github.hadixlin.springfoxplus
 
 import io.github.hadixlin.springfoxplus.javadoc.ClasspathDocStore
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class StaticDocAutoConfiguration {
+@ComponentScan
+class JavaDocAutoConfiguration {
 
 	@Bean
 	fun docStore(): ClasspathDocStore {

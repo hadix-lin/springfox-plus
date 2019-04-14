@@ -14,7 +14,7 @@ import springfox.documentation.swagger.common.SwaggerPluginSupport.SWAGGER_PLUGI
 
 @Component
 @Order(SWAGGER_PLUGIN_ORDER + 100)
-class StaticDocOperationSummaryAndNotesReader(private val docStore: DocStore) : OperationBuilderPlugin {
+class JavaDocOperationSummaryAndNotesReader(private val docStore: DocStore) : OperationBuilderPlugin {
 	override fun apply(context: OperationContext) {
 		val (typeName, methodName) = getDefinitionNames(context)
 		val methodDescription = docStore.readMethodDescription(typeName, methodName)
