@@ -36,7 +36,7 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
    </dependency>
    <!-- springfox-plus -->
    <dependency>
-       <groupId>io.github.hadixlin</groupId>
+       <groupId>io.github.hadix-lin</groupId>
        <artifactId>springfox-plus</artifactId>
        <version>1.0-SNAPSHOT</version>
    </dependency>
@@ -52,7 +52,7 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
    @ComponentScan(basepackages="io.github.hadixlin.springfoxplus")
    
    // 方法三 : 项目使用SpringBoot,引入maven依赖后,不需要额外配置代码
-   // 可以参考源码中的"sample"项目
+   // 可以参考源码中的"springfox-plus-sample"项目
    ```
 
 3. 在项目运行前执行javadoc解析命令,将javadoc从源文件中提取出来保存到项目的输入目录中
