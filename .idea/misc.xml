@@ -21,6 +21,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/sample/pom.xml" />
+        <option value="$PROJECT_DIR$/springfox-plus-sample/pom.xml" />
       </list>
     </option>
   </component>

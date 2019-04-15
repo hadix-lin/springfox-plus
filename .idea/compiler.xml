@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springfox-plus-javadoc-parser" />
         <module name="springfox-plus" />
-        <module name="sample" />
+        <module name="springfox-plus-sample" />
+        <module name="springfox-plus-javadoc-parser" />
         <module name="springfox-plus-javadoc-core" />
       </profile>
     </annotationProcessing>
