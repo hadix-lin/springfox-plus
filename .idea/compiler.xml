@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="springfox-plus" />
         <module name="springfox-plus-sample" />
+        <module name="springfox-plus-maven-plugin" />
         <module name="springfox-plus-javadoc-parser" />
         <module name="springfox-plus-javadoc-core" />
       </profile>

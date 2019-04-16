@@ -1,6 +1,7 @@
 package io.github.hadixlin.springfoxplus
 
 import io.github.hadixlin.springfoxplus.javadoc.ClasspathDocStore
+import io.github.hadixlin.springfoxplus.javadoc.DEFAULT_CLASSPATH_PARENT
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
@@ -14,7 +15,4 @@ class JavaDocAutoConfiguration {
 		return ClasspathDocStore(DEFAULT_CLASSPATH_PARENT)
 	}
 
-	companion object {
-		const val DEFAULT_CLASSPATH_PARENT = "/META-INF/static-doc"
-	}
 }

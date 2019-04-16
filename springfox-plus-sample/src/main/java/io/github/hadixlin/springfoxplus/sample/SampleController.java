@@ -1,4 +1,4 @@
-package io.github.hadixlin.springfoxplus;
+package io.github.hadixlin.springfoxplus.sample;
 
 import io.github.hadixlin.springfoxplus.javadoc.DiskDocStore;
 import io.github.hadixlin.springfoxplus.javadoc.DocStore;

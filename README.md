@@ -55,13 +55,43 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
    // 可以参考源码中的"springfox-plus-sample"项目
    ```
 
-3. 在项目运行前执行javadoc解析命令,将javadoc从源文件中提取出来保存到项目的输入目录中
+3. 使用maven插件执行目标:`springfox-plus:javadoc`
+
+   插件配置: 下面的配置将`javadoc`默认绑定到了`compile`阶段.所以在执行`mvn compile`时即可解析javadoc
+
+   ```xml
+   <build>
+   	<plugins>
+   		<plugin>
+   			<groupId>io.github.hadix-lin</groupId>
+   			<artifactId>springfox-plus-maven-plugin</artifactId>
+   			<version>1.0-SNAPSHOT</version>
+   			<executions>
+   				<execution>
+   					<id>javadoc</id>
+   					<phase>compile</phase>
+   					<goals>
+   						<goal>javadoc</goal>
+   					</goals>
+   				</execution>
+   			</executions>
+   			<configuration>
+   				<packages>
+             <!-- 指定要扫描的包,没有该配置默认扫描所有的java源文件-->
+   					<p>io.github.hadixlin.springfoxplus</p>
+   				</packages>
+   			</configuration>
+   		</plugin>
+   	</plugins>
+   </build>
+   ```
+
+   配置好maven插件后,在pom.xml所在目录中执行下面的命令即可
 
    ```bash
-   java -jar springfox-plus-javadoc-parser-jar-with-dependencies.jar <srcRoot> <outputRoot>
-   
-   # srtRoot : 要扫描解析的java源代码的根目录 
-   # outputRoot : 保存解析结果的目录
+   mvn springfox-plus:javadoc 
+   # 或
+   mvn compile
    ```
 
 4. 正常运行项目,使用swagger-ui查看API文档即可,可以看到API方法的的javadoc被读作作为API文档展示.

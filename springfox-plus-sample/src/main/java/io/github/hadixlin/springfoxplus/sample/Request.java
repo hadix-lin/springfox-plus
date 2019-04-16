@@ -1,4 +1,4 @@
-package io.github.hadixlin.springfoxplus;
+package io.github.hadixlin.springfoxplus.sample;
 
 /** 这是个请求参数对象 */
 public class Request {

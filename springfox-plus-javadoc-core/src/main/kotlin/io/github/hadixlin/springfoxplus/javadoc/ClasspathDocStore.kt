@@ -2,6 +2,8 @@ package io.github.hadixlin.springfoxplus.javadoc
 
 import java.io.InputStream
 
+const val DEFAULT_CLASSPATH_PARENT = "/META-INF/javadoc"
+
 /**
  * 从classpath中读取静态文档信息.不支持写入.
  */
