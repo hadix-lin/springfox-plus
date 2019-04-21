@@ -13,7 +13,7 @@
 
 	<groupId>io.github.hadix-lin</groupId>
 	<artifactId>springfox-plus-sample</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.0.1</version>
 
 	<dependencies>
 		<dependency>
@@ -42,7 +42,7 @@
 		<dependency>
 			<groupId>io.github.hadix-lin</groupId>
 			<artifactId>springfox-plus</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>0.0.1</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -50,7 +50,7 @@
 			<plugin>
 				<groupId>io.github.hadix-lin</groupId>
 				<artifactId>springfox-plus-maven-plugin</artifactId>
-				<version>1.0-SNAPSHOT</version>
+				<version>0.0.1</version>
 				<executions>
 					<execution>
 						<id>javadoc</id>
