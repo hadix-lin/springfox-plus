@@ -58,13 +58,13 @@
 						<goals>
 							<goal>javadoc</goal>
 						</goals>
+						<configuration>
+							<packages>
+								<p>io.github.hadixlin.springfoxplus</p>
+							</packages>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<packages>
-						<p>io.github.hadixlin.springfoxplus</p>
-					</packages>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

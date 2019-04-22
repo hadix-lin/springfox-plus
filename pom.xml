@@ -32,7 +32,6 @@
 		<url>https://github.com/hadix-lin/springfox-plus</url>
 	</scm>
 
-
 	<modules>
 		<module>springfox-plus</module>
 		<module>springfox-plus-javadoc-core</module>
@@ -65,6 +64,25 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/src/main/kotlin</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<artifactId>kotlin-maven-plugin</artifactId>
 				<groupId>org.jetbrains.kotlin</groupId>
 				<version>${kotlin.version}</version>
@@ -94,24 +112,12 @@
 						<goals>
 							<goal>compile</goal>
 						</goals>
-						<configuration>
-							<sourceDirs>
-								<sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-								<sourceDir>${project.basedir}/src/main/java</sourceDir>
-							</sourceDirs>
-						</configuration>
 					</execution>
 					<execution>
 						<id>test-compile</id>
 						<goals>
 							<goal>test-compile</goal>
 						</goals>
-						<configuration>
-							<sourceDirs>
-								<sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-								<sourceDir>${project.basedir}/src/test/java</sourceDir>
-							</sourceDirs>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -151,6 +157,25 @@
 			<id>release</id>
 			<build>
 				<plugins>
+					<!-- kotlin doc-->
+					<plugin>
+						<groupId>org.jetbrains.dokka</groupId>
+						<artifactId>dokka-maven-plugin</artifactId>
+						<version>0.9.18</version>
+						<executions>
+							<execution>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>javadocJar</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<includes>
+								<file>packages.md</file>
+							</includes>
+						</configuration>
+					</plugin>
 					<!-- Source -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -190,7 +215,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.5</version>
+						<version>1.6</version>
 						<executions>
 							<execution>
 								<phase>verify</phase>
@@ -200,8 +225,27 @@
 							</execution>
 						</executions>
 					</plugin>
+					<!-- nexus-staging -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>oss</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>jcenter</id>
+					<name>JCenter</name>
+					<url>https://jcenter.bintray.com/</url>
+				</pluginRepository>
+			</pluginRepositories>
 			<distributionManagement>
 				<snapshotRepository>
 					<id>oss</id>
