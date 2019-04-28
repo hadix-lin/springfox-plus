@@ -34,7 +34,8 @@ interface DocStore {
      * @return 方法参数的注释
      */
     fun readMethodParameterDescription(
-            typeName: String, methodName: String, paramName: String): String? {
+        typeName: String, methodName: String, paramName: String
+    ): String? {
         return readMethodDescription(typeName, methodName)?.parameters?.get(paramName)
     }
 

@@ -15,32 +15,32 @@ const val DEFAULT_SOURCE_DIR = "src/main/java"
  * @param outputDir 输出目录
  */
 fun parse(javaSrcRoot: File, outputDir: String) {
-	val classDescriptions = mutableListOf<ClassDescription>()
-	val srcFileVisitor = object : VoidVisitorAdapter<String>() {
-		override fun visit(type: ClassOrInterfaceDeclaration, parentName: String?) {
-			val description = type.toDescription(parentName)
-			classDescriptions.add(description)
-			super.visit(type, description.name)
-		}
-	}
+    val classDescriptions = mutableListOf<ClassDescription>()
+    val srcFileVisitor = object : VoidVisitorAdapter<String>() {
+        override fun visit(type: ClassOrInterfaceDeclaration, parentName: String?) {
+            val description = type.toDescription(parentName)
+            classDescriptions.add(description)
+            super.visit(type, description.name)
+        }
+    }
 
-	javaSrcRoot.walk()
-			.filter { it.isFile }
-			.filter { it.name.endsWith("java") }
-			.forEach {
-				val cu = JavaParser.parse(it)
-				val parentName = cu.packageDeclaration.orElse(null)?.nameAsString
-				cu.accept(srcFileVisitor, parentName)
-			}
+    javaSrcRoot.walk()
+        .filter { it.isFile }
+        .filter { it.name.endsWith("java") }
+        .forEach {
+            val cu = JavaParser.parse(it)
+            val parentName = cu.packageDeclaration.orElse(null)?.nameAsString
+            cu.accept(srcFileVisitor, parentName)
+        }
 
-	val docStore = DiskDocStore(outputDir)
-	classDescriptions.forEach { desc -> docStore.write(desc) }
+    val docStore = DiskDocStore(outputDir)
+    classDescriptions.forEach { desc -> docStore.write(desc) }
 }
 
 fun main(args: Array<String>) {
-	val srcDir = if (args.isNotEmpty()) args[0] else DEFAULT_SOURCE_DIR
-	val outDir = if (args.size >= 2) args[1] else DEFAULT_OUTPUT_DIR
-	val javaSrcRoot = Paths.get(srcDir).toFile()
-	parse(javaSrcRoot, outDir)
+    val srcDir = if (args.isNotEmpty()) args[0] else DEFAULT_SOURCE_DIR
+    val outDir = if (args.size >= 2) args[1] else DEFAULT_OUTPUT_DIR
+    val javaSrcRoot = Paths.get(srcDir).toFile()
+    parse(javaSrcRoot, outDir)
 }
 

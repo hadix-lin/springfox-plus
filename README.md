@@ -18,35 +18,26 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
 1. 在项目中添加maven依赖
 
    ```xml
-   <!-- springfox deps -->
-   <dependency>
-       <groupId>io.springfox</groupId>
-       <artifactId>springfox-swagger2</artifactId>
-       <version>2.9.2</version>
-   </dependency>
-   <dependency>
-       <groupId>io.swagger</groupId>
-       <artifactId>swagger-annotations</artifactId>
-       <version>1.5.21</version>
-   </dependency>
-   <dependency>
-       <groupId>io.springfox</groupId>
-       <artifactId>springfox-swagger-ui</artifactId>
-       <version>2.9.2</version>
-   </dependency>
    <!-- springfox-plus -->
    <dependency>
        <groupId>io.github.hadix-lin</groupId>
        <artifactId>springfox-plus</artifactId>
-       <version>1.0-SNAPSHOT</version>
+       <version>[the last version]</version>
+   </dependency>
+   
+   <!-- 如果使用spring-boot -->
+   <dependency>
+       <groupId>io.github.hadix-lin</groupId>
+       <artifactId>springfox-plus-spring-boot-starter</artifactId>
+       <version>[the last version]</version>
    </dependency>
    ```
-
+   
 2. 导入Bean声明
 
    ```java
    // 方法一 : 在您的@Configuration类上加上如下代码
-   @Import(io.github.hadixlin.springfoxplus.JavaDocAutoConfiguration.class)
+   @Import(io.github.hadixlin.springfoxplus.SpringfoxPlusConfiguration.class)
    
    // 方法二 : 确保`JavaDocAutoConfiguration`在Bean扫描范围内
    @ComponentScan(basepackages="io.github.hadixlin.springfoxplus")
@@ -96,3 +87,72 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
 
 4. 正常运行项目,使用swagger-ui查看API文档即可,可以看到API方法的的javadoc被读作作为API文档展示.
 
+## 进阶用法
+
+1. 如果有项目中有大量的API接口,同时展示在一个页面上可能不太好看,加载也会比较慢.这时候就需要使用API分组
+
+   ```xml
+   <!-- 确保springfox-plus-support在项目的编译时依赖中 -->
+   <dependency>
+       <groupId>io.github.hadix-lin</groupId>
+       <artifactId>springfox-plus-support</artifactId>
+       <version>[the last version]</version>
+   </dependency>
+   ```
+
+   然后在您的项目中定义Bean来描述分组情况,例如添加一个"后台管理接口分组"
+
+   ```java
+   @Bean
+   public ApiDocGroup adminGroup() {
+       // 定义分组
+       ApiDocGroup group = new ApiDocGroup("后台管理接口分组");
+       // prefix和pattern二选一即可,同时设置优先使用prefix
+       group.setPathPrefix(new String[] {"/smaple"});
+       group.setPathPattern("/sample.*");
+   
+       // 可选配置文档说明信息
+       ApiDocInfo info = new ApiDocInfo();
+       info.setTitle("后台管理接口文档");
+       info.setDescription("这里可以添加详细的文档信息,可以是html格式");
+       info.setContact("作者的名字");
+       info.setVersion("v1.0");
+       group.setApiDocInfo(info);
+       return group;
+   }
+   ```
+
+2. 项目发布到生产环境时,应该是不希望开发API文档服务的.有两种方法可以达到该目的
+
+   * 如果您的项目是用`springfox-plus-spring-boot-starter`,那么可以在配置文件(通常是`application.properties`)中加入:
+
+     `springfox-plus.enable=false`
+     
+   * 或者使用maven profile来管理构建,指定profile来构建包含springfox-plus
+     ```xml
+       <profiles>
+         <profile>
+           <id>with-api-doc</id>
+           <dependencies>
+             <dependency>
+               <groupId>io.github.hadix-lin</groupId>
+               <artifactId>springfox-plus-spring-boot-starter</artifactId>
+               <version>[the last version]</version>
+             </dependency>
+           </dependencies>
+         </profile>
+       </profiles>
+       <!-- springfox-plus-support 一定要包含在编译时依赖中 -->
+       <dependencies>
+         <dependency>
+           <groupId>io.github.hadix-lin</groupId>
+           <artifactId>springfox-plus-support</artifactId>
+           <version>[the last version]</version>
+         </dependency>
+       </dependencies>
+     ```
+   然后在开发阶段构建时使用如下命令:
+     
+     ```bash
+     mvn package -P with-api-doc
+     ```
