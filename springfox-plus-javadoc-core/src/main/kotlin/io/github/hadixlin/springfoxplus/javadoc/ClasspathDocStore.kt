@@ -7,7 +7,7 @@ const val DEFAULT_CLASSPATH_PARENT = "/META-INF/javadoc"
 /**
  * 从classpath中读取静态文档信息.不支持写入.
  */
-class ClasspathDocStore(parent: String) :
+class ClasspathDocStore(parent: String = DEFAULT_CLASSPATH_PARENT) :
     JsonDocStore({ it.input(parent) }, { throw NotImplementedError("has no need") }) {
 
     override fun write(desc: ClassDescription) {

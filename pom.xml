@@ -7,7 +7,7 @@
   <groupId>io.github.hadix-lin</groupId>
   <artifactId>springfox-plus-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>springfox-plus</name>
   <description>An extension of SpringFox that supports read javadoc as API document</description>
   <url>https://github.com/hadix-lin/springfox-plus</url>
@@ -51,12 +51,6 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.4</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>

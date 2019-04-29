@@ -24,7 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
  * @author hadix
  * @date 13/03/2017
  */
-@Configuration("docAutoConfiguration")
+@Configuration
 @ComponentScan
 @Import(BeanValidatorPluginsConfiguration::class)
 @EnableSwagger2

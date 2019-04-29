@@ -2,8 +2,6 @@ package io.github.hadixlin.springfoxplus.sample;
 
 import io.github.hadixlin.springfox.ApiDocGroup;
 import io.github.hadixlin.springfox.ApiDocInfo;
-import io.github.hadixlin.springfoxplus.javadoc.DiskDocStore;
-import io.github.hadixlin.springfoxplus.javadoc.DocStore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,9 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.File;
-import java.net.URL;
 
 @SpringBootApplication
 @RestController
@@ -32,12 +27,6 @@ public class SampleController {
         info.setVersion("v1.0");
         group.setApiDocInfo(info);
         return group;
-    }
-
-    @Bean
-    public DocStore docStore() {
-        URL resource = SampleController.class.getResource("/META-INF/static-doc");
-        return new DiskDocStore(new File(resource.getFile()).getPath());
     }
 
     public static void main(String[] args) {

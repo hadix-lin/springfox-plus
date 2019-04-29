@@ -16,7 +16,7 @@ window.onload = () => {
                             req.parameters = req.parameters || {}
                             const paramValue = req.parameters[param.name]
 
-                            // if the value is falsy or an empty Immutable iterable...
+                            // if the value is false or an empty Immutable iterable...
                             if (!paramValue || (paramValue && paramValue.size === 0)) {
                                 // set it to empty string, so Swagger Client will treat it as
                                 // present but empty.
