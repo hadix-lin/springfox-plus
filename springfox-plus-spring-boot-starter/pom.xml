@@ -5,7 +5,7 @@
   <parent>
     <artifactId>springfox-plus-parent</artifactId>
     <groupId>io.github.hadix-lin</groupId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -15,21 +15,34 @@
 
   <artifactId>springfox-plus-spring-boot-starter</artifactId>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>io.github.hadix-lin</groupId>
       <artifactId>springfox-plus</artifactId>
-      <version>1.0.0</version>
+      <version>${springfox-plus.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <version>${spring-boot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
-      <version>${spring-boot.version}</version>
       <optional>true</optional>
     </dependency>
   </dependencies>

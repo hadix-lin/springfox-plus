@@ -7,7 +7,7 @@
   <groupId>io.github.hadix-lin</groupId>
   <artifactId>springfox-plus-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <name>springfox-plus</name>
   <description>An extension of SpringFox that supports read javadoc as API document</description>
   <url>https://github.com/hadix-lin/springfox-plus</url>
@@ -42,6 +42,8 @@
   </modules>
 
   <properties>
+    <springfox-plus.version>1.0.1</springfox-plus.version>
+
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

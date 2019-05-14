@@ -7,6 +7,7 @@ import org.springframework.beans.BeansException
 import org.springframework.beans.factory.config.BeanPostProcessor
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.EnableAspectJAutoProxy
 import org.springframework.context.annotation.Import
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
@@ -28,6 +29,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 @ComponentScan
 @Import(BeanValidatorPluginsConfiguration::class)
 @EnableSwagger2
+@EnableAspectJAutoProxy
 class SpringfoxPlusConfiguration : WebMvcConfigurerAdapter(), BeanPostProcessor {
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
