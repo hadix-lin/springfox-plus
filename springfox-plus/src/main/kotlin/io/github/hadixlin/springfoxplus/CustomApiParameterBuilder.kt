@@ -48,40 +48,16 @@ class CustomApiParameterBuilder : ParameterBuilderPlugin, ExpandedParameterBuild
         setExampleToDefaultIfBlank(ctx)
     }
 
-    private fun setExampleToDefaultIfBlank(ctx: ParameterExpansionContext) {
-        val apiModelProperty = ctx.findAnnotation(ApiModelProperty::class.java)
-        if (apiModelProperty.isPresent && isBlank(apiModelProperty.get().example)) {
-            setExampleToDefaultValue(ctx.parameterBuilder, ctx.fieldType.erasedType)
-        }
-    }
-
-    private fun setRequired(ctx: ParameterExpansionContext) {
-        if (ANNOTATIONS_FOR_REQUIRED.any { an ->
-                ctx.findAnnotation(an).isPresent
-            }) {
-            ctx.parameterBuilder.required(true)
-        }
-    }
-
     companion object {
-
-        private val ANNOTATIONS_FOR_REQUIRED = ImmutableList.of(
-            org.hibernate.validator.constraints.NotEmpty::class.java,
-            org.hibernate.validator.constraints.NotBlank::class.java,
-            javax.validation.constraints.NotEmpty::class.java,
-            javax.validation.constraints.NotBlank::class.java,
-            javax.validation.constraints.NotNull::class.java,
-            javax.validation.constraints.Min::class.java
-        )
 
         private fun setParameterType(ctx: ParameterContext, parameterBuilder: ParameterBuilder) {
             val operation = ctx.operationContext
-            val httpMethod = operation.httpMethod()
-            var parameterType: String? = null
-            when (httpMethod) {
-                HttpMethod.POST, HttpMethod.PUT -> parameterType = "form"
-                HttpMethod.GET, HttpMethod.HEAD -> parameterType = "query"
-            }// do nothing;
+            var parameterType: String? =
+                when (operation.httpMethod()) {
+                    HttpMethod.POST, HttpMethod.PUT -> "form"
+                    HttpMethod.GET, HttpMethod.HEAD -> "query"
+                    else -> null
+                }
 
             if (shouldSetParameterTypeToBody(ctx.resolvedMethodParameter())) {
                 parameterType = "body"
@@ -118,6 +94,23 @@ class CustomApiParameterBuilder : ParameterBuilderPlugin, ExpandedParameterBuild
             parameterBuilder.scalarExample(defaultValue(type))
         }
 
+        private fun setRequired(ctx: ParameterExpansionContext) {
+            if (ANNOTATIONS_FOR_REQUIRED.any { an ->
+                    ctx.findAnnotation(an).isPresent
+                }) {
+                ctx.parameterBuilder.required(true)
+            }
+        }
+
+        private val ANNOTATIONS_FOR_REQUIRED = ImmutableList.of(
+            org.hibernate.validator.constraints.NotEmpty::class.java,
+            org.hibernate.validator.constraints.NotBlank::class.java,
+            javax.validation.constraints.NotEmpty::class.java,
+            javax.validation.constraints.NotBlank::class.java,
+            javax.validation.constraints.NotNull::class.java,
+            javax.validation.constraints.Min::class.java
+        )
+
         private fun setRequiredIfNeed(
             parameterBuilder: ParameterBuilder,
             parameter: ResolvedMethodParameter
@@ -128,6 +121,13 @@ class CustomApiParameterBuilder : ParameterBuilderPlugin, ExpandedParameterBuild
                     parameterBuilder.required(true)
                     break
                 }
+            }
+        }
+
+        private fun setExampleToDefaultIfBlank(ctx: ParameterExpansionContext) {
+            val apiModelProperty = ctx.findAnnotation(ApiModelProperty::class.java)
+            if (apiModelProperty.isPresent && isBlank(apiModelProperty.get().example)) {
+                setExampleToDefaultValue(ctx.parameterBuilder, ctx.fieldType.erasedType)
             }
         }
     }

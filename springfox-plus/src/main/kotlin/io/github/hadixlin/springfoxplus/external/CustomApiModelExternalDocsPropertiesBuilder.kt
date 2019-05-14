@@ -3,7 +3,7 @@ package io.github.hadixlin.springfoxplus.external
 import com.google.common.base.Optional
 import io.github.hadixlin.springfoxplus.AFTER_SWAGGER
 import io.github.hadixlin.springfoxplus.AnnotationHelper
-import io.github.hadixlin.springfoxplus.ReflectionUtils.readField
+import io.github.hadixlin.springfoxplus.readField
 import io.swagger.annotations.ExternalDocs
 import org.springframework.core.annotation.AnnotationUtils
 import org.springframework.core.annotation.Order
@@ -45,7 +45,7 @@ class CustomApiModelExternalDocsPropertiesBuilder : ModelPropertyBuilderPlugin {
     }
 
     private fun setExternalDocs(mpBuilder: ModelPropertyBuilder, externalDocs: ExternalDocs) {
-        val description = readField(mpBuilder, "description", String::class.java)
+        val description = mpBuilder.readField("description", String::class.java)
         val docUrl = externalDocs.url
         val docName = externalDocs.value
         val newDescription = createExternalDocsDescription(description, docName, docUrl)

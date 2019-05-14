@@ -1,7 +1,7 @@
 package io.github.hadixlin.springfoxplus.external
 
 import io.github.hadixlin.springfoxplus.AFTER_SWAGGER
-import io.github.hadixlin.springfoxplus.ReflectionUtils.readField
+import io.github.hadixlin.springfoxplus.readField
 import io.swagger.annotations.ExternalDocs
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
@@ -35,7 +35,7 @@ class CustomApiExternalDocsParameterBuilder : ParameterBuilderPlugin,
     ) {
         val docUrl = externalDocsAnnotation.url
         val docName = externalDocsAnnotation.value
-        val description = readField(parameterBuilder, "description", String::class.java)
+        val description = parameterBuilder.readField("description", String::class.java)
         val newDescription = createExternalDocsDescription(description, docName, docUrl)
         parameterBuilder.description(newDescription)
     }

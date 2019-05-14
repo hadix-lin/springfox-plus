@@ -1,7 +1,7 @@
 package io.github.hadixlin.springfoxplus.external
 
 import io.github.hadixlin.springfoxplus.AFTER_SWAGGER
-import io.github.hadixlin.springfoxplus.ReflectionUtils.readField
+import io.github.hadixlin.springfoxplus.readField
 import io.swagger.annotations.ExternalDocs
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
@@ -21,7 +21,7 @@ class CustomApiExternalDocsOperationBuilder : OperationBuilderPlugin {
         if (externalDocsAnnotation.isPresent) {
             val externalDocs = externalDocsAnnotation.get()
             val operationBuilder = context.operationBuilder()
-            val notes = readField(operationBuilder, "notes", String::class.java)
+            val notes = operationBuilder.readField("notes", String::class.java)
             val docName = externalDocs.value
             val docUrl = externalDocs.url
             val newNotes = createExternalDocsDescription(notes, docName, docUrl)
