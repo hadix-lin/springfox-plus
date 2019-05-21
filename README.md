@@ -1,4 +1,6 @@
 # SpringFox-Plus
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhadix-lin%2Fspringfox-plus.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhadix-lin%2Fspringfox-plus?ref=badge_shield)
+
 
 ## 概述
 
@@ -156,3 +158,7 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
      ```bash
      mvn package -P with-api-doc
      ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fhadix-lin%2Fspringfox-plus.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fhadix-lin%2Fspringfox-plus?ref=badge_large)
