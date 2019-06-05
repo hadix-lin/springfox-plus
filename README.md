@@ -13,7 +13,7 @@ SpringFox原生提供的插件,只能从Swagger-Annotation注解中提取描述�
 3. 注解的名称冗长(`@ApiParam,@ApiOperation,@ApiModelProperty`)
 4. 代码原本可能已经提供了javadoc注释,跟注解内容重复
 
-SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规情况下可以替代`@ApiParam,@ApiOperation,@ApiModelProperty`等注解的使用.80%异常的API文档也是通过这三个注解提供的.
+SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规情况下可以替代`@ApiParam,@ApiOperation,@ApiModelProperty`等注解的使用.80%以上的API文档也是通过这三个注解提供的.
 
 ## 使用方法
 
@@ -124,7 +124,7 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
    }
    ```
 
-2. 项目发布到生产环境时,应该是不希望开发API文档服务的.有两种方法可以达到该目的
+2. 项目发布到生产环境时,应该是不希望开放API文档服务的.有两种方法可以达到该目的
 
    * 如果您的项目是用`springfox-plus-spring-boot-starter`,那么可以在配置文件(通常是`application.properties`)中加入:
 
@@ -153,8 +153,9 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
          </dependency>
        </dependencies>
      ```
-   然后在开发阶段构建时使用如下命令:
-     
+
+     然后在开发阶段构建时使用如下命令:
+
      ```bash
      mvn package -P with-api-doc
      ```
