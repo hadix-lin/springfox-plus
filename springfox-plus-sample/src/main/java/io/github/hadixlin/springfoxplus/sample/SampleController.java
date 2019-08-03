@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sample")
 public class SampleController {
+    public static void main(String[] args) {
+        new SpringApplication(SampleController.class).run(args);
+    }
+
     @Bean
     public ApiDocGroup adminGroup() {
         ApiDocGroup group = new ApiDocGroup("示例接口分组");
-        group.setPathPrefix(new String[] {"/smaple"});
+        group.setPathPrefix(new String[]{"/smaple"});
         group.setPathPattern("/sample.*");
 
         ApiDocInfo info = new ApiDocInfo();
@@ -26,16 +30,12 @@ public class SampleController {
         return group;
     }
 
-    public static void main(String[] args) {
-        new SpringApplication(SampleController.class).run(args);
-    }
-
     /**
      * 示例方法<br>
      * 示例方法的注释<br>
      * 示例方法的注释第二行
      *
-     * @param id 实体id参数
+     * @param id       实体id参数
      * @param argModel 请求参数对象
      * @return 响应对象
      */

@@ -12,7 +12,8 @@ import java.lang.reflect.Method;
  */
 public class AnnotationHelper {
     public static <A extends Annotation> A findAnnotation(
-            Method method, @Nullable Class<A> annotationType) {
+        Method method, @Nullable Class<A> annotationType
+    ) {
         return AnnotationUtils.findAnnotation(method, annotationType);
     }
 }

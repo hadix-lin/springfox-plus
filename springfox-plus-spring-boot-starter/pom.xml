@@ -5,7 +5,7 @@
   <parent>
     <artifactId>springfox-plus-parent</artifactId>
     <groupId>io.github.hadix-lin</groupId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -15,17 +15,6 @@
 
   <artifactId>springfox-plus-spring-boot-starter</artifactId>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>io.github.hadix-lin</groupId>
@@ -45,29 +34,8 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
-        <configuration>
-          <compilerPlugins>
-            <plugin>spring</plugin>
-          </compilerPlugins>
-          <args>
-            <arg>-Xjsr305=strict</arg>
-          </args>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-noarg</artifactId>
-            <version>${kotlin.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-allopen</artifactId>
-            <version>${kotlin.version}</version>
-          </dependency>
-        </dependencies>
+        <artifactId>kotlin-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>kapt</id>

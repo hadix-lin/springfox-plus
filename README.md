@@ -54,28 +54,28 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
 
    ```xml
    <build>
-   	<plugins>
-   		<plugin>
-   			<groupId>io.github.hadix-lin</groupId>
-   			<artifactId>springfox-plus-maven-plugin</artifactId>
-   			<version>1.0-SNAPSHOT</version>
-   			<executions>
-   				<execution>
-   					<id>javadoc</id>
-   					<phase>compile</phase>
-   					<goals>
-   						<goal>javadoc</goal>
-   					</goals>
-   				</execution>
-   			</executions>
-   			<configuration>
-   				<packages>
-             <!-- 指定要扫描的包,没有该配置默认扫描所有的java源文件-->
-   					<p>io.github.hadixlin.springfoxplus</p>
-   				</packages>
-   			</configuration>
-   		</plugin>
-   	</plugins>
+     <plugins>
+       <plugin>
+         <groupId>io.github.hadix-lin</groupId>
+         <artifactId>springfox-plus-maven-plugin</artifactId>
+         <version>${springfox-plus.version}</version>
+         <executions>
+           <execution>
+             <id>javadoc</id>
+             <phase>compile</phase>
+             <goals>
+               <goal>javadoc</goal>
+             </goals>
+             <configuration>
+               <packages>
+                 <!-- 指定要扫描的包,没有该配置默认扫描所有的java源文件-->
+                 <p>io.github.hadixlin.springfoxplus</p>
+               </packages>
+             </configuration>
+           </execution>
+         </executions>
+       </plugin>
+     </plugins>
    </build>
    ```
 
