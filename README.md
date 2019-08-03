@@ -89,6 +89,8 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
 
 4. 正常运行项目,使用swagger-ui查看API文档即可,可以看到API方法的的javadoc被读作作为API文档展示.
 
+   swagger-ui可以直接通过`http://host:port/swagger-ui.html`来访问
+
 ## 进阶用法
 
 1. 如果有项目中有大量的API接口,同时展示在一个页面上可能不太好看,加载也会比较慢.这时候就需要使用API分组
