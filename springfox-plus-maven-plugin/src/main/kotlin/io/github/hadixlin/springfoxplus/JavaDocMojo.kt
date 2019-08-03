@@ -38,7 +38,7 @@ class JavaDocMojo : AbstractMojo() {
             log.debug("parse ${sourceDir.path}")
             parse(sourceDir, outDir)
         }
-        log.info("packages=$packages")
+        log.info("packages=${packages.contentToString()}")
     }
 
 }
