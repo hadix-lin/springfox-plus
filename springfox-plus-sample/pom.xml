@@ -17,7 +17,6 @@
 
   <properties>
     <springfox-plus.version>1.0.2-SNAPSHOT</springfox-plus.version>
-    <kotlin.version>1.3.30</kotlin.version>
   </properties>
 
   <profiles>

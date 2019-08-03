@@ -45,7 +45,6 @@
     <module>springfox-plus-support</module>
     <module>springfox-plus</module>
     <module>springfox-plus-spring-boot-starter</module>
-    <module>springfox-plus-sample</module>
   </modules>
 
   <properties>
@@ -61,7 +60,6 @@
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <version>${kotlin.version}</version>
     </dependency>
   </dependencies>
   <build>
@@ -161,6 +159,7 @@
               <includes>
                 <file>packages.md</file>
               </includes>
+              <apiVersion>1.2</apiVersion>
             </configuration>
           </plugin>
           <!-- Source -->
