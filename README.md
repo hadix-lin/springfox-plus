@@ -24,15 +24,23 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
    <dependency>
        <groupId>io.github.hadix-lin</groupId>
        <artifactId>springfox-plus</artifactId>
-       <version>[the last version]</version>
+       <version>1.0.2-SNAPSHOT</version>
    </dependency>
    
    <!-- 如果使用spring-boot -->
    <dependency>
        <groupId>io.github.hadix-lin</groupId>
        <artifactId>springfox-plus-spring-boot-starter</artifactId>
-       <version>[the last version]</version>
+       <version>1.0.2-SNAPSHOT</version>
    </dependency>
+   
+   <!-- 使用SNAPSHOT版本需要声明如下仓库 -->
+   <repositories>
+     <repository>
+       <id>oss</id>
+       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+     </repository>
+   </repositories>
    ```
    
 2. 导入Bean声明
