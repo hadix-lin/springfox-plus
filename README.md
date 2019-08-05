@@ -39,8 +39,20 @@ SpringFox-Plus为Spring-Fox提供了读取javadoc作为API文档的能力.常规
      <repository>
        <id>oss</id>
        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+       <snapshots>
+         <enabled>true</enabled>
+       </snapshots>
      </repository>
    </repositories>
+   <pluginRepositories>
+     <pluginRepository>
+       <id>oss-plugin</id>
+       <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+       <snapshots>
+         <enabled>true</enabled>
+       </snapshots>
+     </pluginRepository>
+   </pluginRepositories>
    ```
    
 2. 导入Bean声明

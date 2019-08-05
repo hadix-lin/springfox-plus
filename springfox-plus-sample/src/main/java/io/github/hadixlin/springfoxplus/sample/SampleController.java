@@ -5,7 +5,12 @@ import io.github.hadixlin.springfox.ApiDocInfo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
@@ -18,7 +23,7 @@ public class SampleController {
     @Bean
     public ApiDocGroup adminGroup() {
         ApiDocGroup group = new ApiDocGroup("示例接口分组");
-        group.setPathPrefix(new String[]{"/smaple"});
+        group.setPathPrefix(new String[] {"/smaple"});
         group.setPathPattern("/sample.*");
 
         ApiDocInfo info = new ApiDocInfo();
@@ -52,8 +57,18 @@ public class SampleController {
      * @param req 请求参数体
      * @return 响应对象
      */
+    @PostMapping("/postBody")
+    public Response postSampleModelBody(@RequestBody Request req) {
+        return null;
+    }
+
     @PostMapping("/post")
-    public Response postSampleModel(@RequestBody Request req) {
+    public Response postSampleModel(Request req) {
+        return null;
+    }
+
+    @GetMapping("/get/{id}")
+    public Response getSampleModelByPathVal(@PathVariable Integer id, Request argModel) {
         return null;
     }
 }

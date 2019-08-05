@@ -8,9 +8,7 @@ import org.apache.commons.lang3.ClassUtils.isPrimitiveWrapper
 import org.apache.commons.lang3.ClassUtils.wrapperToPrimitive
 import org.apache.commons.lang3.StringUtils.isBlank
 import org.springframework.core.annotation.Order
-import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
-import org.springframework.web.bind.annotation.RequestBody
 import springfox.documentation.builders.ParameterBuilder
 import springfox.documentation.service.ResolvedMethodParameter
 import springfox.documentation.spi.DocumentationType
@@ -31,8 +29,6 @@ class CustomApiParameterBuilder : ParameterBuilderPlugin, ExpandedParameterBuild
         val parameterBuilder = ctx.parameterBuilder()
         val parameter = ctx.resolvedMethodParameter()
 
-        setParameterType(ctx, parameterBuilder)
-
         setRequiredIfNeed(parameterBuilder, parameter)
 
         setExampleToDefaultIfBlank(parameterBuilder, parameter)
@@ -49,28 +45,6 @@ class CustomApiParameterBuilder : ParameterBuilderPlugin, ExpandedParameterBuild
     }
 
     companion object {
-
-        private fun setParameterType(ctx: ParameterContext, parameterBuilder: ParameterBuilder) {
-            val operation = ctx.operationContext
-            var parameterType: String? =
-                when (operation.httpMethod()) {
-                    HttpMethod.POST, HttpMethod.PUT -> "form"
-                    HttpMethod.GET, HttpMethod.HEAD -> "query"
-                    else -> null
-                }
-
-            if (shouldSetParameterTypeToBody(ctx.resolvedMethodParameter())) {
-                parameterType = "body"
-            }
-            if (parameterType != null) {
-                parameterBuilder.parameterType(parameterType)
-            }
-        }
-
-        private fun shouldSetParameterTypeToBody(parameter: ResolvedMethodParameter): Boolean {
-            val requestBody = parameter.findAnnotation(RequestBody::class.java)
-            return requestBody.isPresent
-        }
 
         /**
          * 通过设置默认值,避免后续出现example解析错误
