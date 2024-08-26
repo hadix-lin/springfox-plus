@@ -11,7 +11,7 @@
 
   <artifactId>springfox-plus</artifactId>
   <properties>
-    <springfox.versin>2.9.2</springfox.versin>
+    <springfox.versin>2.10.0</springfox.versin>
   </properties>
 
   <dependencies>
